@@ -1,11 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import {
+  Typography,
+  LinearProgress,
+  Divider,
+  Grid,
+  Button
+} from '@material-ui/core';
+import { Favorite } from '@material-ui/icons';
 import { fetchCategories } from '../../actions/categoriesActions';
-import { fetchAllPosts } from '../../actions/postsActions';
+import {
+  fetchAllPosts,
+  filter,
+  FILTER_TYPES
+} from '../../actions/postsActions';
 import PostList from '../../components/PostList';
-
-import './index.css';
-import { Typography } from '@material-ui/core';
 
 class Home extends React.Component {
   state = {};
@@ -17,6 +26,13 @@ class Home extends React.Component {
     dispatch(fetchAllPosts());
   }
 
+  handleFilter = type => {
+    const { dispatch, postsState } = this.props;
+    const { posts } = postsState;
+
+    dispatch(filter(type, posts));
+  };
+
   render() {
     const { categoriesState, postsState } = this.props;
     const { loading, error } = categoriesState;
@@ -25,7 +41,7 @@ class Home extends React.Component {
     if (loading) {
       return (
         <div>
-          <h1>loading</h1>
+          <LinearProgress />
         </div>
       );
     }
@@ -39,10 +55,37 @@ class Home extends React.Component {
     }
 
     return (
-      <div className="container">
-        <h1>All posts</h1>
+      <Grid item xs>
+        <Grid container justify="center" alignItems="center">
+          <Grid item xs={4}>
+            <Grid container justify="center" alignItems="center">
+              <Button onClick={() => this.handleFilter(FILTER_TYPES.VOTESCORE)}>
+                Filter by Votes
+              </Button>
+            </Grid>
+          </Grid>
+          <Grid item xs={4}>
+            <Grid container justify="center" alignItems="center">
+              <Typography style={{ margin: 10 }} gutterBottom variant="h4">
+                All Posts
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid item xs={4}>
+            <Grid container justify="center" alignItems="center">
+              <Button onClick={() => this.handleFilter(FILTER_TYPES.TIME)}>
+                Filter by Time
+              </Button>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid container justify="center" alignItems="center">
+          <Grid item xs={8}>
+            <Divider />
+          </Grid>
+        </Grid>
         <PostList posts={posts} />
-      </div>
+      </Grid>
     );
   }
 }
