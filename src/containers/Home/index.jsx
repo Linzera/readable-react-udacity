@@ -7,7 +7,7 @@ import {
   Grid,
   Button
 } from '@material-ui/core';
-import { Favorite } from '@material-ui/icons';
+import { Favorite, Timelapse } from '@material-ui/icons';
 import { fetchCategories } from '../../actions/categoriesActions';
 import {
   fetchAllPosts,
@@ -59,8 +59,12 @@ class Home extends React.Component {
         <Grid container justify="center" alignItems="center">
           <Grid item xs={4}>
             <Grid container justify="center" alignItems="center">
-              <Button onClick={() => this.handleFilter(FILTER_TYPES.VOTESCORE)}>
+              <Button
+                variant="outlined"
+                onClick={() => this.handleFilter(FILTER_TYPES.VOTESCORE)}
+              >
                 Filter by Votes
+                <Favorite />
               </Button>
             </Grid>
           </Grid>
@@ -73,14 +77,18 @@ class Home extends React.Component {
           </Grid>
           <Grid item xs={4}>
             <Grid container justify="center" alignItems="center">
-              <Button onClick={() => this.handleFilter(FILTER_TYPES.TIME)}>
+              <Button
+                variant="outlined"
+                onClick={() => this.handleFilter(FILTER_TYPES.TIME)}
+              >
                 Filter by Time
+                <Timelapse />
               </Button>
             </Grid>
           </Grid>
         </Grid>
         <Grid container justify="center" alignItems="center">
-          <Grid item xs={8}>
+          <Grid item xs={12}>
             <Divider />
           </Grid>
         </Grid>

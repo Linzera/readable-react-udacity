@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import PostList from '../../components/PostList';
 import { fetchCategoryPosts } from '../../actions/postsActions';
@@ -30,7 +29,6 @@ class Category extends React.Component {
 
     return (
       <div>
-        <Link to="/">Home</Link>
         <h1>Categoria {categoryTitle}</h1>
         {isLoading ? <h2>Loading...</h2> : <PostList posts={categoryPosts} />}
       </div>
